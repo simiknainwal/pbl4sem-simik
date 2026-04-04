@@ -1,5 +1,6 @@
 import heapq
 import math
+import os
 
 INT_MAX = math.inf
 
@@ -156,33 +157,10 @@ def parse_input_file(content: str) -> Graph:
 
 def build_default_graph() -> tuple:
     """Returns the sample building from input.txt."""
-    content = """11
-Lobby | 0
-Hallway A | 0
-Main Exit | 0
-Stairs A (Flr 0) | 0
-Stairs A (Flr 1) | 1
-Hallway B | 1
-Lab | 1
-Stairs B (Flr 1) | 1
-Stairs B (Flr 2) | 2
-Server Room | 2
-Roof Exit | 2
-12
-0 1 5
-1 2 10
-0 3 2
-3 4 5
-4 5 4
-5 6 3
-5 7 2
-7 8 5
-8 9 4
-9 10 3
-6 10 8
-2 3 15
-0
-2 10"""
+    file_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'input.txt')
+    with open(file_path, 'r', encoding='utf-8') as f:
+        content = f.read()
     return parse_input_file(content)
+
 
 
