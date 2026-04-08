@@ -6,10 +6,6 @@ class DisjointSet:
         for i in range(n):
             self.parent.append(i)
             
-        self.rank = []
-        for i in range(n):
-            self.rank.append(0)
-        
     def find(self, i):
         if self.parent[i] == i:
             return i
@@ -17,20 +13,13 @@ class DisjointSet:
         return self.parent[i]
         
     def union(self, i, j):
-        root_i = self.find(i)
-        root_j = self.find(j)
-        if root_i != root_j:
-            if self.rank[root_i] < self.rank[root_j]:
-                self.parent[root_i] = root_j
-            elif self.rank[root_i] > self.rank[root_j]:
-                self.parent[root_j] = root_i
-            else:
-                self.parent[root_j] = root_i
-                self.rank[root_i] += 1
+        up_i = self.find(i)
+        up_j = self.find(j)
+        if(up_i==up_j):return False
+        else: 
+            self.parent[up_j]=up_i
             return True
-        else:
-            return False
-
+        
 def kruskal_mst(graph):
     edges = graph.get_all_edges()
     
@@ -38,8 +27,8 @@ def kruskal_mst(graph):
         return item[2]
         
     edges = merge_sort(edges, key=get_weight)
-    
-    ds = DisjointSet(graph.get_number_of_nodes())
+    n=graph.get_number_of_nodes()
+    ds = DisjointSet(n)
     mst = []
     total_cost = 0
     
